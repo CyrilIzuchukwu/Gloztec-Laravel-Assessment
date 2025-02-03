@@ -14,7 +14,7 @@ class TaskController extends Controller
     {
         $filter = $request->query('status');
 
-        
+
         $tasks = Task::query()
             ->when($filter, function ($query) use ($filter) {
                 return $filter === 'pending' ? $query->pending() : ($filter === 'completed' ? $query->completed() : $query);
@@ -44,7 +44,6 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'due_date' => 'required|date|after:today',
-            'status' => 'required|in:pending,completed',
         ]);
 
         Task::create($request->all());
