@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Due Date</label>
-            <input type="date" name="due_date" class="form-control"  value="{{ old('due_date') }}" required>
+            <input type="date" name="due_date" class="form-control" value="{{ old('due_date') }}" required>
             @error('due_date') <span style="display: block" class="error-message">{{ $message }}</span> @enderror
         </div>
         <button type="submit" class="btn btn-success">Create Task</button>
