@@ -41,6 +41,7 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'due_date' => 'required|date|after:today',
+            'status' => 'required|in:pending,completed',
         ]);
 
         Task::create($request->all());
