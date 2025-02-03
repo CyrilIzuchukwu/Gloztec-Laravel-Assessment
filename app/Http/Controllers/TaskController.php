@@ -12,16 +12,19 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // $tasks = Task::get();
-        $filter = $request->query('status'); // Get status from URL query parameter
+        $filter = $request->query('status');
 
-        $tasks = Task::when($filter, function ($query) use ($filter) {
-            return $filter === 'pending' ? $query->pending() : ($filter === 'completed' ? $query->completed() : $query);
-        })->get();
+        
+        $tasks = Task::query()
+            ->when($filter, function ($query) use ($filter) {
+                return $filter === 'pending' ? $query->pending() : ($filter === 'completed' ? $query->completed() : $query);
+            })
+            ->latest()
+            ->paginate(10);
 
         return view('tasks.index', compact('tasks'));
     }
+
 
     /**
      * Show the form for creating a new resource.
